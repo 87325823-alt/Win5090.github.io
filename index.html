@@ -1,0 +1,1013 @@
+<!-- 为网站做个贡献把！！！ -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>你是怎么找到的？？？</title>
+    <link rel="shortcut icon" href="file:///C:/Users/2025/OneDrive/Desktop/%E7%BD%91%E9%A1%B5/%E5%A4%B4%E5%83%8F%E5%9B%BE%E6%A0%87.ico" type="image/x-icon">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* ============ 动态渐变背景 ============ */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(45deg, #667eea, #764ba2, #f093fb, #f5576c, #ff7e5f);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* ============ 导航栏美化 ============ */
+        .navbar {
+            /* 修改这里：使用实心背景，不透明 */
+            background: rgba(15, 23, 42, 0.98);
+            /* 删除或注释掉 backdrop-filter */
+            /* backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%); */
+            border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 
+                0 10px 40px rgba(0, 0, 0, 0.4),
+                0 0 0 1px rgba(56, 189, 248, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .navbar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent,
+                #38bdf8,
+                #22d3ee,
+                #0ea5e9,
+                #38bdf8,
+                transparent
+            );
+            animation: shine 3s infinite linear;
+        }
+        
+        .navbar::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(56, 189, 248, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(34, 211, 238, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+            /* 删除 backdrop-filter */
+            /* backdrop-filter: blur(2px); */
+        }
+
+        .navbar.scrolled {
+            height: 70px;
+            background: rgba(15, 23, 42, 0.99);
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+            /* 删除 backdrop-filter */
+            /* backdrop-filter: blur(15px) saturate(180%); */
+        }
+
+        /* Logo区域 */
+        .navbar-logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-container {
+            position: relative;
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            /* 修改这里：改为半透明背景，轻微模糊 */
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 
+                inset 0 2px 4px rgba(255, 255, 255, 0.05),
+                0 8px 16px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(56, 189, 248, 0.2);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .logo-container::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, 
+                rgba(56, 189, 248, 0.2),
+                rgba(34, 211, 238, 0.1)
+            );
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .logo-container:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 
+                inset 0 2px 4px rgba(255, 255, 255, 0.1),
+                0 12px 24px rgba(0, 0, 0, 0.4),
+                0 0 0 2px rgba(56, 189, 248, 0.3);
+            backdrop-filter: blur(8px);
+        }
+
+        .logo-container:hover::before {
+            opacity: 1;
+        }
+
+        #topbar-logo {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.5));
+            z-index: 1;
+            transition: transform 0.5s ease;
+        }
+
+        .logo-container:hover #topbar-logo {
+            transform: rotate(10deg);
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-title {
+            font-size: 1.8em;
+            font-weight: 800;
+            background: linear-gradient(135deg, #38bdf8, #22d3ee);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 10px rgba(56, 189, 248, 0.3);
+            letter-spacing: 0.5px;
+        }
+
+        .logo-subtitle {
+            font-size: 0.85em;
+            color: #94a3b8;
+            font-weight: 500;
+            margin-top: -2px;
+        }
+
+        /* 导航链接 */
+        .navbar-links {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 20px;
+            padding-right: 20px;
+            border-right: 1px solid rgba(56, 189, 248, 0.1);
+        }
+
+        .social-link {
+            position: relative;
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            /* 修改这里：增加不透明度 */
+            background: rgba(30, 41, 59, 0.9);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 
+                inset 0 2px 4px rgba(255, 255, 255, 0.05),
+                0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+        }
+
+        .social-link::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, 
+                rgba(56, 189, 248, 0.2),
+                rgba(34, 211, 238, 0.1)
+            );
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .social-link:hover {
+            transform: translateY(-3px) scale(1.1);
+            box-shadow: 
+                inset 0 2px 4px rgba(255, 255, 255, 0.1),
+                0 8px 20px rgba(0, 0, 0, 0.3),
+                0 0 20px rgba(56, 189, 248, 0.2);
+            backdrop-filter: blur(8px);
+        }
+
+        .social-link:hover::before {
+            opacity: 1;
+        }
+
+        .social-link img {
+            width: 24px;
+            height: 24px;
+            filter: brightness(0) invert(1) sepia(1) saturate(5) hue-rotate(180deg);
+            transition: transform 0.3s, filter 0.3s;
+            z-index: 1;
+        }
+
+        .social-link:hover img {
+            transform: scale(1.2);
+            filter: brightness(1) invert(0);
+        }
+
+        /* QQ图标特殊处理 */
+        .social-link[title="QQ空间"] img {
+            filter: brightness(0) invert(1);
+        }
+
+        .social-link[title="QQ空间"]:hover img {
+            filter: brightness(1) invert(0) sepia(1) saturate(5) hue-rotate(180deg);
+        }
+
+        /* 导航菜单 */
+        .nav-menu {
+            display: flex;
+            gap: 25px;
+            margin-left: 20px;
+        }
+
+        .nav-item {
+            position: relative;
+            color: #cbd5e1;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            font-size: 0.95em;
+            background: transparent;
+        }
+
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #38bdf8, #22d3ee);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-item:hover {
+            color: #ffffff;
+            background: rgba(56, 189, 248, 0.15);
+            backdrop-filter: blur(5px);
+            transform: translateY(-1px);
+        }
+
+        .nav-item:hover::before {
+            width: 80%;
+        }
+
+        .nav-item.active {
+            color: #ffffff;
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.25), rgba(34, 211, 238, 0.15));
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 12px rgba(56, 189, 248, 0.2);
+        }
+
+        .nav-item.active::before {
+            width: 100%;
+        }
+
+        /* 用户信息 */
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-left: 30px;
+        }
+
+        .user-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #38bdf8, #22d3ee);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            font-size: 1.2em;
+            box-shadow: 
+                0 4px 15px rgba(56, 189, 248, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            transition: transform 0.3s;
+            backdrop-filter: blur(5px);
+        }
+
+        .user-avatar:hover {
+            transform: rotate(15deg) scale(1.1);
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: #ffffff;
+            font-size: 1em;
+        }
+
+        /* ============ 内容区域样式 ============ */
+        .main-content {
+            margin-top: 100px; /* 给导航栏留出空间 */
+            padding: 40px;
+            min-height: calc(100vh - 100px);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 欢迎横幅 */
+        .welcome-banner {
+            background: rgba(56, 189, 248, 0.12);
+            backdrop-filter: blur(15px) saturate(180%);
+            -webkit-backdrop-filter: blur(15px) saturate(180%);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(49, 26, 26, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-banner::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 30% 30%, rgba(56, 189, 248, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 70% 70%, rgba(34, 211, 238, 0.1) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        .welcome-banner h1 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #38bdf8, #22d3ee);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 10px rgba(56, 189, 248, 0.2);
+        }
+
+        .welcome-banner p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1em;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .welcome-banner .cold-fact {
+            margin-top: 15px;
+            font-size: 0.9em;
+            color: #38bdf8;
+            font-style: italic;
+        }
+
+        /* 卡片网格 */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(15px) saturate(180%);
+            -webkit-backdrop-filter: blur(15px) saturate(180%);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, 
+                rgba(56, 189, 248, 0.1),
+                rgba(34, 211, 238, 0.05)
+            );
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(56, 189, 248, 0.3);
+            border-color: #38bdf8;
+            backdrop-filter: blur(20px) saturate(200%);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card h3 {
+            color: #38bdf8;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card p {
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 新增：section-info样式 */
+        .section-info {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(15px) saturate(180%);
+            -webkit-backdrop-filter: blur(15px) saturate(180%);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-info::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, 
+                rgba(56, 189, 248, 0.1),
+                rgba(34, 211, 238, 0.05)
+            );
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .section-info:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.25),
+                0 0 0 1px rgba(56, 189, 248, 0.25);
+            backdrop-filter: blur(18px) saturate(200%);
+        }
+
+        .section-info:hover::before {
+            opacity: 1;
+        }
+
+        .section-title {
+            color: #38bdf8;
+            font-size: 1.4em;
+            font-weight: 600;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-subtitle {
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.6;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(56, 189, 248, 0.2);
+            backdrop-filter: blur(5px);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            margin-right: 10px;
+            margin-top: 5px;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-link:hover {
+            background: rgba(56, 189, 248, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3);
+        }
+
+        /* 特色内容 */
+        .feature-section {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(15px) saturate(180%);
+            -webkit-backdrop-filter: blur(15px) saturate(180%);
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 40px;
+            border: 1px solid rgba(56, 189, 248, 0.15);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-section h2 {
+            color: #38bdf8;
+            margin-bottom: 25px;
+            text-align: center;
+            font-size: 1.8em;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .feature-item {
+            padding: 20px;
+            background: rgba(56, 189, 248, 0.12);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 10px;
+            border-left: 4px solid #38bdf8;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-3px);
+            background: rgba(56, 189, 248, 0.18);
+            box-shadow: 0 5px 15px rgba(56, 189, 248, 0.2);
+        }
+
+        .feature-item h4 {
+            color: #ffffff;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+
+        .feature-item p {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+
+        /* 号召行动 */
+        .call-to-action {
+            text-align: center;
+            margin-top: 50px;
+            padding: 30px;
+            background: rgba(56, 189, 248, 0.15);
+            backdrop-filter: blur(15px) saturate(180%);
+            -webkit-backdrop-filter: blur(15px) saturate(180%);
+            border-radius: 15px;
+            border: 1px solid rgba(56, 189, 248, 0.25);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .call-to-action::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(56, 189, 248, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(34, 211, 238, 0.15) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        .call-to-action h3 {
+            color: #38bdf8;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+            position: relative;
+            z-index: 1;
+        }
+
+        .call-to-action p {
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 动画效果 */
+        @keyframes shine {
+            0% {
+                background-position: -200% 0;
+            }
+            100% {
+                background-position: 200% 0;
+            }
+        }
+
+        /* 悬浮提示 */
+        .tooltip {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            color: rgba(255, 255, 255, 0.9);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.85em;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            pointer-events: none;
+        }
+
+        .social-link:hover .tooltip {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(5px);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 1024px) {
+            .navbar {
+                padding: 0 20px;
+            }
+            
+            .nav-menu {
+                display: none;
+            }
+            
+            .social-links {
+                border-right: none;
+                padding-right: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                height: 70px;
+            }
+            
+            .main-content {
+                margin-top: 80px;
+                padding: 20px;
+            }
+            
+            .logo-title {
+                font-size: 1.5em;
+            }
+            
+            .logo-subtitle {
+                font-size: 0.75em;
+                display: none;
+            }
+            
+            .social-link {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .social-link img {
+                width: 20px;
+                height: 20px;
+            }
+            
+            .user-name {
+                display: none;
+            }
+            
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .welcome-banner h1 {
+                font-size: 2em;
+            }
+            
+            .welcome-banner p {
+                font-size: 1em;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            /* 调整毛玻璃效果的模糊度以适应移动端 */
+            .card, .section-info, .feature-section, .welcome-banner, .call-to-action {
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 动态渐变背景 -->
+    <div class="bg-animation" id="bgAnimation"></div>
+    
+    <!-- 美化后的导航栏 -->
+    <nav class="navbar" id="navbar">
+        <!-- Logo区域 -->
+        <div class="navbar-logo">
+            <div class="logo-container">
+                <img src="file:///C:/Users/2025/OneDrive/Desktop/%E7%BD%91%E9%A1%B5/%E5%A4%B4%E5%83%8F%E5%9B%BE%E6%A0%87.ico" id="topbar-logo" alt="CXYBBS Logo">
+            </div>
+            <div class="logo-text">
+                <div class="logo-title">Windows11的5090显卡</div>
+                <div class="logo-subtitle">Windows11的5090显卡的资源社区</div>
+            </div>
+        </div>
+
+        <!-- 右侧区域 -->
+        <div class="navbar-links">
+            <!-- 社交链接 -->
+            <div class="social-links">
+                <a href="https://user.qzone.qq.com/3886959742/" target="_blank" class="social-link" title="QQ空间">
+                    <img src="file:///C:/Users/2025/OneDrive/Desktop/%E7%BD%91%E9%A1%B5/qq.png" alt="QQ空间">
+                    <div class="tooltip">访问QQ空间</div>
+                </a>
+                <a href="https://space.bilibili.com/3537122898217458?spm_id_from=333.1007.0.0" target="_blank" class="social-link" title="B站">
+                    <img src="file:///C:/Users/2025/OneDrive/Desktop/%E7%BD%91%E9%A1%B5/B%E7%AB%99.png" alt="Bilibili">
+                    <div class="tooltip">访问Bilibili</div>
+                </a>
+            </div>
+            <!-- 用户信息 -->
+            <div class="user-info">
+                <div class="user-avatar">用</div>
+                <div class="user-name">用户</div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============ 主要内容区域 ============ -->
+    <div class="main-content">
+        <!-- 欢迎横幅 -->
+        <div class="welcome-banner">
+            <h1>欢迎来到Windows11的5090显卡资源社区！</h1>
+            <p>这里是Windows11 5090显卡的个人网站，这里会发布一些B站的资源可供下载（完全免费的哦！！！）</p>
+            <p class="cold-fact">冷知识：你是怎么找到的？？？</p>
+        </div>
+
+        <!-- 卡片网格 -->
+        <div class="cards-grid">
+            <!-- 这里的内容保持原有结构 -->
+            <div class="section-info">
+                <div class="section-title">迷你世界病毒</div>
+                <div class="section-subtitle">迷你世界病毒是一个破坏力超强的病毒，在虚拟机测哦！密码：c40w</div>
+                <a href="https://wwes.lanzoub.com/iCBw13akhhad" target="_blank" class="section-link"><img src="file:///C:/Users/2025/OneDrive/Desktop/%E7%BD%91%E9%A1%B5/download.png"width="18" height="18" viewBox="0 0 24 24"><path fill="#ffffff" d="M16.36 14c.08-.66.14-1.32.14-2s-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2m-5.15 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8.03 8.03 0 0 1-4.33 3.56M14.34 14H9.66c-.1-.66-.16-1.32-.16-2s.06-1.35.16-2h4.68c.09.65.16 1.32.16 2s-.07 1.34-.16 2M12 19.96c-.83-1.2-1.5-2.53-1.91-3.96h3.82c-.41 1.43-1.08 2.76-1.91 3.96M8 8H5.08A7.92 7.92 0 0 1 9.4 4.44C8.8 5.55 8.35 6.75 8 8m-2.92 8H8c.35 1.25.8 2.45 1.4 3.56A8 8 0 0 1 5.08 16m-.82-2C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2s.06 1.34.14 2M12 4.03c.83 1.2 1.5 2.54 1.91 3.97h-3.82c.41-1.43 1.08-2.77 1.91-3.97M18.92 8h-2.95a15.7 15.7 0 0 0-1.38-3.56c1.84.63 3.37 1.9 4.33 3.56M12 2C6.47 2 2 6.5 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10A10 10 0 0 0 12 2"></path></svg>我要下载</a>
+                <a href="https://www.bilibili.com/video/BV13XkUB8EvQ/?spm_id_from=333.1387.homepage.video_card.click&vd_source=5a57c74a0e5c0cca4bf6bca309002b97" target="_blank" class="section-link"><img src="file:///C:/Users/2025/OneDrive/Desktop/%E7%BD%91%E9%A1%B5/B%E7%AB%99.png" width="18">观看视频</a>
+            </div>
+            
+            <div class="section-info">
+                <div class="section-title">Fuck语言</div>
+                <div class="section-subtitle">Windows11的5090显卡字岩编程语言 密码:2ze1 压缩包密码：66666666</div>
+                <a href="https://wwes.lanzoub.com/b014wljh0b" target="_blank" class="section-link"><img src="file:///C:/Users/2025/OneDrive/Desktop/%E7%BD%91%E9%A1%B5/download.png"width="18" height="18" viewBox="0 0 24 24"><path fill="#ffffff" d="M16.36 14c.08-.66.14-1.32.14-2s-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2m-5.15 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8.03 8.03 0 0 1-4.33 3.56M14.34 14H9.66c-.1-.66-.16-1.32-.16-2s.06-1.35.16-2h4.68c.09.65.16 1.32.16 2s-.07 1.34-.16 2M12 19.96c-.83-1.2-1.5-2.53-1.91-3.96h3.82c-.41 1.43-1.08 2.76-1.91 3.96M8 8H5.08A7.92 7.92 0 0 1 9.4 4.44C8.8 5.55 8.35 6.75 8 8m-2.92 8H8c.35 1.25.8 2.45 1.4 3.56A8 8 0 0 1 5.08 16m-.82-2C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2s.06 1.34.14 2M12 4.03c.83 1.2 1.5 2.54 1.91 3.97h-3.82c.41-1.43 1.08-2.77 1.91-3.97M18.92 8h-2.95a15.7 15.7 0 0 0-1.38-3.56c1.84.63 3.37 1.9 4.33 3.56M12 2C6.47 2 2 6.5 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10A10 10 0 0 0 12 2"></path></svg>我要下载</a>
+                <a href="https://www.bilibili.com/video/BV1QwbWzgEwL/?spm_id_from=333.1387.upload.video_card.click&vd_source=5a57c74a0e5c0cca4bf6bca309002b97" target="_blank" class="section-link"><img src="file:///C:/Users/2025/OneDrive/Desktop/%E7%BD%91%E9%A1%B5/B%E7%AB%99.png" width="18">观看视频</a>
+            </div>
+            
+            <div class="section-info">
+                <div class="section-title">Geek</div>
+                <div class="section-subtitle">一个强大的卸载工具 快去下载康康！</div>
+                <a href="https://geekuninstaller.com/" target="_blank" class="section-link"><img src="file:///C:/Users/2025/OneDrive/Desktop/%E7%BD%91%E9%A1%B5/download.png"width="18" height="18" viewBox="0 0 24 24"><path fill="#ffffff" d="M16.36 14c.08-.66.14-1.32.14-2s-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2m-5.15 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8.03 8.03 0 0 1-4.33 3.56M14.34 14H9.66c-.1-.66-.16-1.32-.16-2s.06-1.35.16-2h4.68c.09.65.16 1.32.16 2s-.07 1.34-.16 2M12 19.96c-.83-1.2-1.5-2.53-1.91-3.96h3.82c-.41 1.43-1.08 2.76-1.91 3.96M8 8H5.08A7.92 7.92 0 0 1 9.4 4.44C8.8 5.55 8.35 6.75 8 8m-2.92 8H8c.35 1.25.8 2.45 1.4 3.56A8 8 0 0 1 5.08 16m-.82-2C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2s.06 1.34.14 2M12 4.03c.83 1.2 1.5 2.54 1.91 3.97h-3.82c.41-1.43 1.08-2.77 1.91-3.97M18.92 8h-2.95a15.7 15.7 0 0 0-1.38-3.56c1.84.63 3.37 1.9 4.33 3.56M12 2C6.47 2 2 6.5 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10A10 10 0 0 0 12 2"></path></svg>我要下载</a>
+                <a href="https://91.com" target="_blank" class="section-link"><img src="file:///C:/Users/2025/OneDrive/Desktop/%E7%BD%91%E9%A1%B5/%E5%A4%B4%E5%83%8F%E5%9B%BE%E7%89%87.jpg" width="18">彩蛋</a>
+            </div>
+             <div class="section-info">
+                <div class="section-title">Bandizip</div>
+                <div class="section-subtitle">一个强大的解压缩工具 快去下载康康！</div>
+                <a href="https://www.bandisoft.com/bandizip/" target="_blank" class="section-link"><img src="file:///C:/Users/2025/OneDrive/Desktop/%E7%BD%91%E9%A1%B5/download.png"width="18" height="18" viewBox="0 0 24 24"><path fill="#ffffff" d="M16.36 14c.08-.66.14-1.32.14-2s-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2m-5.15 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8.03 8.03 0 0 1-4.33 3.56M14.34 14H9.66c-.1-.66-.16-1.32-.16-2s.06-1.35.16-2h4.68c.09.65.16 1.32.16 2s-.07 1.34-.16 2M12 19.96c-.83-1.2-1.5-2.53-1.91-3.96h3.82c-.41 1.43-1.08 2.76-1.91 3.96M8 8H5.08A7.92 7.92 0 0 1 9.4 4.44C8.8 5.55 8.35 6.75 8 8m-2.92 8H8c.35 1.25.8 2.45 1.4 3.56A8 8 0 0 1 5.08 16m-.82-2C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2s.06 1.34.14 2M12 4.03c.83 1.2 1.5 2.54 1.91 3.97h-3.82c.41-1.43 1.08-2.77 1.91-3.97M18.92 8h-2.95a15.7 15.7 0 0 0-1.38-3.56c1.84.63 3.37 1.9 4.33 3.56M12 2C6.47 2 2 6.5 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10A10 10 0 0 0 12 2"></path></svg>我要下载</a>
+            </div>
+        </div>
+
+        <!-- 特色内容 -->
+        <div class="feature-section">
+            <h2>🎯 社区特色</h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <h4>💎 资源丰富</h4>
+                    <p>各种视频的相关资源一站式获取</p>
+                </div>
+                <div class="feature-item">
+                    <h4>🛠️ 教程详细</h4>
+                    <p>从安装到优化的完整教程指南</p>
+                </div>
+                <div class="feature-item">
+                    <h4>👥 活跃社区</h4>
+                    <p>全服现在有9191个人在访问</p>
+                </div>
+                <div class="feature-item">
+                    <h4>🔔 及时更新</h4>
+                    <p>第一时间获取最新资源和资讯</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 号召行动 -->
+        <div class="call-to-action">
+            <h3>🎁 为网站做个贡献吧！！！</h3>
+            <p>网站更新时间：2026.01.16 版本：1.0.0</p>
+            <p>Copyright © Win11 5090 2024~2026 Win11 5090 Inc.All rights reserved.</p>
+            <a href="file:///C:/Users/2025/OneDrive/Desktop/%E7%BD%91%E9%A1%B5/%E7%94%A8%E6%88%B7%E5%8D%8F%E8%AE%AE.html">用户协议</a>
+            <a href="https://v.wjx.cn/vm/wf1bWFM.aspx">意见反馈</a>
+        </div>
+    </div>
+    <script>
+        // 滚动效果
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Logo浮动效果
+        const logoContainer = document.querySelector('.logo-container');
+        let floatDirection = 1;
+        
+        function floatAnimation() {
+            const currentTransform = logoContainer.style.transform || 'translateY(0)';
+            const currentY = parseFloat(currentTransform.match(/translateY\(([-.\d]+)px\)/)?.[1] || 0);
+            
+            if (currentY <= -5) floatDirection = 1;
+            if (currentY >= 5) floatDirection = -1;
+            
+            const newY = currentY + floatDirection * 0.5;
+            logoContainer.style.transform = `translateY(${newY}px)`;
+            
+            requestAnimationFrame(floatAnimation);
+        }
+        
+        // 延迟开始动画
+        setTimeout(() => {
+            floatAnimation();
+        }, 1000);
+
+        // 导航项点击效果
+        const navItems = document.querySelectorAll('.nav-item');
+        navItems.forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                navItems.forEach(nav => nav.classList.remove('active'));
+                this.classList.add('active');
+                
+                // 添加点击反馈
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 200);
+            });
+        });
+        
+        // 添加导航栏悬停效果
+        const navbar = document.getElementById('navbar');
+        navbar.addEventListener('mouseenter', () => {
+            navbar.style.transform = 'translateY(2px)';
+            navbar.style.boxShadow = 
+                '0 15px 50px rgba(0, 0, 0, 0.5), ' +
+                '0 0 0 1px rgba(56, 189, 248, 0.3), ' +
+                'inset 0 1px 0 rgba(255, 255, 255, 0.1)';
+        });
+        
+        navbar.addEventListener('mouseleave', () => {
+            navbar.style.transform = 'translateY(0)';
+            if (window.scrollY > 50) {
+                navbar.style.boxShadow = '0 5px 30px rgba(0, 0, 0, 0.3)';
+            } else {
+                navbar.style.boxShadow = 
+                    '0 10px 40px rgba(0, 0, 0, 0.4), ' +
+                    '0 0 0 1px rgba(56, 189, 248, 0.1), ' +
+                    'inset 0 1px 0 rgba(255, 255, 255, 0.05)';
+            }
+        });
+        
+        // 社交链接点击效果
+        const socialLinks = document.querySelectorAll('.social-link');
+        socialLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const url = this.href;
+                
+                // 创建点击效果
+                this.style.transform = 'scale(0.9)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                    window.open(url, '_blank');
+                }, 200);
+            });
+        });
+        
+        // 页面加载动画
+        window.addEventListener('load', function() {
+            navbar.style.opacity = '0';
+            navbar.style.transform = 'translateY(-20px)';
+            
+            setTimeout(() => {
+                navbar.style.transition = 'opacity 0.5s, transform 0.5s';
+                navbar.style.opacity = '1';
+                navbar.style.transform = 'translateY(0)';
+            }, 100);
+        });
+        
+        // 动态背景效果
+        const bgAnimation = document.getElementById('bgAnimation');
+        let hue = 0;
+        
+        function updateBackground() {
+            hue = (hue + 0.1) % 360;
+            const color1 = `hsl(${hue}, 70%, 60%)`;
+            const color2 = `hsl(${(hue + 60) % 360}, 70%, 60%)`;
+            const color3 = `hsl(${(hue + 120) % 360}, 70%, 60%)`;
+            const color4 = `hsl(${(hue + 180) % 360}, 70%, 60%)`;
+            const color5 = `hsl(${(hue + 240) % 360}, 70%, 60%)`;
+            
+            bgAnimation.style.background = `linear-gradient(45deg, ${color1}, ${color2}, ${color3}, ${color4}, ${color5})`;
+            
+            requestAnimationFrame(updateBackground);
+        }
+        
+        // 启动背景颜色变化
+        updateBackground();
+        
+        // 添加元素悬停时的交互效果
+        const glassElements = document.querySelectorAll('.card, .section-info, .feature-item, .welcome-banner, .call-to-action');
+        
+        glassElements.forEach(element => {
+            element.addEventListener('mouseenter', function() {
+                this.style.backdropFilter = 'blur(25px) saturate(200%) brightness(1.1)';
+                this.style.webkitBackdropFilter = 'blur(25px) saturate(200%) brightness(1.1)';
+            });
+            
+            element.addEventListener('mouseleave', function() {
+                this.style.backdropFilter = '';
+                this.style.webkitBackdropFilter = '';
+            });
+        });
+    </script>
+</body>
+</html>
